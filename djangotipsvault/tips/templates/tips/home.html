@@ -1,0 +1,35 @@
+{% extends 'tips/base.html' %}
+
+{% block title %}Home - Django Tips Vault{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="filters">
+        <h2>Filter by Category</h2>
+        <div class="category-filters">
+            <a href="{% url 'tips:home' %}" class="category-btn {% if not request.GET.category %}active{% endif %}">All</a>
+            {% for value, label in categories.items %}
+                <a href="?category={{ value }}" class="category-btn {% if request.GET.category == value %}active{% endif %}">
+                    {{ label }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="tips-grid">
+        {% for tip in tips %}
+            <article class="tip-card">
+                <h3>{{ tip.title }}</h3>
+                <p class="category">{{ tip.get_category_display }}</p>
+                <p class="content">{{ tip.content|truncatewords:30 }}</p>
+                <div class="tip-footer">
+                    <span class="upvotes">👍 {{ tip.upvotes }}</span>
+                    <a href="{% url 'tips:tip_detail' tip.pk %}" class="read-more">Read More</a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="no-tips">No tips found in this category.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

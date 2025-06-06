@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Django Tips Vault{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'tips/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <a href="{% url 'tips:home' %}" class="logo">Django Tips Vault</a>
+                <div class="nav-links">
+                    <a href="{% url 'tips:home' %}">Home</a>
+                    <a href="{% url 'tips:add_tip' %}">Add Tip</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <main>
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <aside class="whats-new">
+            <div class="whats-new-container">
+                <h2>What's New in Python</h2>
+                <div class="news-items">
+                    <article class="news-item">
+                        <h3>Python 3.13</h3>
+                        <p>Latest features include:</p>
+                        <ul>
+                            <li>Improved error messages</li>
+                            <li>Faster startup time</li>
+                            <li>New type system features</li>
+                            <li>Enhanced performance</li>
+                        </ul>
+                    </article>
+                    <article class="news-item">
+                        <h3>Popular Libraries</h3>
+                        <ul>
+                            <li>FastAPI - Modern web framework</li>
+                            <li>Pydantic - Data validation</li>
+                            <li>SQLAlchemy 2.0 - Database toolkit</li>
+                            <li>Poetry - Dependency management</li>
+                        </ul>
+                    </article>
+                    <article class="news-item">
+                        <h3>Development Tools</h3>
+                        <ul>
+                            <li>Black - Code formatter</li>
+                            <li>Ruff - Fast Python linter</li>
+                            <li>Mypy - Static type checker</li>
+                            <li>Pytest - Testing framework</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Django Tips Vault. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

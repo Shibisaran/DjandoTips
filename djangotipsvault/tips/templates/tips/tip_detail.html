@@ -1,0 +1,31 @@
+{% extends 'tips/base.html' %}
+
+{% block title %}{{ tip.title }} - Django Tips Vault{% endblock %}
+
+{% block content %}
+<div class="container">
+    <article class="tip-detail">
+        <header class="tip-header">
+            <h1>{{ tip.title }}</h1>
+            <div class="tip-meta">
+                <span class="category">{{ tip.get_category_display }}</span>
+                <span class="date">{{ tip.created_at|date:"F j, Y" }}</span>
+            </div>
+        </header>
+
+        <div class="tip-content">
+            {{ tip.content|linebreaks }}
+        </div>
+
+        <div class="tip-actions">
+            <form method="post" class="upvote-form">
+                {% csrf_token %}
+                <button type="submit" class="upvote-btn">
+                    👍 Upvote ({{ tip.upvotes }})
+                </button>
+            </form>
+            <a href="{% url 'tips:home' %}" class="back-btn">← Back to Tips</a>
+        </div>
+    </article>
+</div>
+{% endblock %} 
